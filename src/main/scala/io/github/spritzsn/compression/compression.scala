@@ -10,7 +10,8 @@ def apply(): RequestHandler2 =
     req.headers get "accept-encoding" match
       case Some(encodings) if encodings contains "gzip" =>
         res action {
-          if res.body.nonEmpty then
+          if res.body.length > 23 then
+            // https://stackoverflow.com/a/46739747/13420474 // Mark Adler wrote the decompression // https://zlib.net/
             val gzipped = gzipCompress(res.body)
 
             if gzipped.length < res.body.length then
