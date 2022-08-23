@@ -10,12 +10,13 @@ def apply(): RequestHandler2 =
     req.headers get "accept-encoding" match
       case Some(encodings) if encodings contains "gzip" =>
         res action {
-          val gzipped = gzipCompress(res.body)
+          if res.body.nonEmpty then
+            val gzipped = gzipCompress(res.body)
 
-          if gzipped.length < res.body.length then
-            res.body = gzipped
-            res.set("Content-Encoding", "gzip")
-            res.set("Content-Length", res.body.length)
+            if gzipped.length < res.body.length then
+              res.body = gzipped
+              res.set("Content-Encoding", "gzip")
+              res.set("Content-Length", res.body.length)
         }
       case _ =>
 
