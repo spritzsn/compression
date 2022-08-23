@@ -12,6 +12,7 @@ def apply(): RequestHandler2 =
         res action {
           res.body = gzipCompress(res.body)
           res.set("Content-Encoding", "gzip")
+          res.set("Content-Length", res.body.length)
         }
       case _ =>
 
