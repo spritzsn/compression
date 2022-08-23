@@ -1,6 +1,8 @@
 name := "compression"
 
-version := "0.0.1"
+version := "0.0.2"
+
+versionScheme := Some("early-semver")
 
 scalaVersion := "3.1.3"
 
