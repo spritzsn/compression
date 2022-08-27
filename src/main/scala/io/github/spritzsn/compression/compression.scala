@@ -1,12 +1,12 @@
 package io.github.spritzsn.compression
 
-import io.github.spritzsn.spritz.{DMap, HandlerResult, RequestHandler2, Request, Response}
+import io.github.spritzsn.spritz.{DMap, HandlerResult, RequestHandler}
 
 import java.io.ByteArrayOutputStream
 import java.util.zip.GZIPOutputStream
 
-def apply(): RequestHandler2 =
-  (req: Request, res: Response) =>
+def apply(): RequestHandler =
+  (req, res) =>
     req.headers get "accept-encoding" match
       case Some(encodings) if encodings contains "gzip" =>
         res action {
