@@ -40,7 +40,7 @@ homepage := Some(url("https://github.com/spritzsn/" + name.value))
 //libraryDependencies += "org.scalatest" %%% "scalatest" % "3.2.13" % "test"
 
 libraryDependencies ++= Seq(
-  "io.github.spritzsn" %%% "spritz" % "0.0.42",
+  "io.github.spritzsn" %%% "spritz" % "0.0.43",
 )
 
 //libraryDependencies ++= Seq(

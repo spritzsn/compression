@@ -10,8 +10,14 @@ def apply(): RequestHandler =
     req.headers get "accept-encoding" match
       case Some(encodings) if encodings contains "gzip" =>
         res action {
-          val typ = res.
-          if res.body.length > 1400 && () then
+          val typ = res get "Content-Type"
+
+          if res.body.length > 1400 && typ.isDefined &&
+            (typ.get.contains("svg") ||
+              typ.get.startsWith("text") ||
+              typ.get.contains("javascript") ||
+              typ.get.contains("json"))
+          then
             val gzipped = gzipCompress(res.body)
 
             if gzipped.length < res.body.length then
