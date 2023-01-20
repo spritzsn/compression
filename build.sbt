@@ -1,10 +1,10 @@
 name := "compression"
 
-version := "0.0.7"
+version := "0.0.8"
 
 versionScheme := Some("early-semver")
 
-scalaVersion := "3.2.0"
+scalaVersion := "3.2.1"
 
 enablePlugins(ScalaNativePlugin)
 
