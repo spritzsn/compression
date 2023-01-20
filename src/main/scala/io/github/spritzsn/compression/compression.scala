@@ -1,6 +1,8 @@
 package io.github.spritzsn.compression
 
+import io.github.edadma.libbrotli.{DEFAULT_WINDOW, EncoderMode, encoderCompress}
 import io.github.spritzsn.spritz.{DMap, HandlerResult, RequestHandler}
+import io.github.spritzsn.libbrotli.{DEFAULT_QUALITY}
 
 import java.io.ByteArrayOutputStream
 import java.util.zip.GZIPOutputStream
@@ -53,3 +55,9 @@ def gzipCompress(input: Array[Byte]): Array[Byte] =
   out.write(input)
   out.close()
   output.toByteArray
+
+def brotliCompress(input: Array[Byte]): Array[Byte] =
+  val compressed =
+    encoderCompress(DEFAULT_QUALITY, DEFAULT_WINDOW, EncoderMode.TEXT, input) getOrElse sys.error("error compressing")
+
+  compressed
