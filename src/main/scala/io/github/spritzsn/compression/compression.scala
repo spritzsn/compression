@@ -9,7 +9,7 @@ import java.util.zip.GZIPOutputStream
 def apply(gzipMinLen: Int = 1400, brotliMinLen: Int = 20): RequestHandler =
   (req, res) =>
     req.headers get "accept-encoding" match
-      case Some(encodings) if encodings contains "brotli" =>
+      case Some(encodings) if encodings contains "br" =>
         res action {
           val typ = res get "Content-Type"
 
@@ -19,10 +19,10 @@ def apply(gzipMinLen: Int = 1400, brotliMinLen: Int = 20): RequestHandler =
               typ.get.contains("javascript") ||
               typ.get.contains("json"))
           then
-            val gzipped = gzipCompress(res.body)
+            val compressed = brotliCompress(res.body)
 
-            if gzipped.length < res.body.length then
-              res.body = gzipped
+            if compressed.length < res.body.length then
+              res.body = compressed
               res.set("Content-Encoding", "gzip")
               res.set("Content-Length", res.body.length)
         }
@@ -43,7 +43,8 @@ def apply(gzipMinLen: Int = 1400, brotliMinLen: Int = 20): RequestHandler =
               res.set("Content-Encoding", "gzip")
               res.set("Content-Length", res.body.length)
         }
-      case _ =>
+      case Some(encodings) if encodings contains "identity" =>
+      case _                                                =>
 
     HandlerResult.Next
 
