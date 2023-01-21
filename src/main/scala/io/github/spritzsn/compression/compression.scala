@@ -23,7 +23,7 @@ def apply(gzipMinLen: Int = 1400, brotliMinLen: Int = 20): RequestHandler =
 
             if compressed.length < res.body.length then
               res.body = compressed
-              res.set("Content-Encoding", "gzip")
+              res.set("Content-Encoding", "br")
               res.set("Content-Length", res.body.length)
         }
       case Some(encodings) if encodings contains "gzip" =>

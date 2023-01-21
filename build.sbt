@@ -1,6 +1,6 @@
 name := "compression"
 
-version := "0.0.8a"
+version := "0.0.8"
 
 versionScheme := Some("early-semver")
 
